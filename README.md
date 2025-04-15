@@ -3,13 +3,16 @@
 > [!NOTE]
 >
 > This starter is heavily inspired by DatoCMS own eCommerce demo and their cache-tags starter. Find the repos here: [ecommerce-website-demo](https://github.com/datocms/ecommerce-website-demo) [nextjs-with-cache-tags-starter](https://github.com/datocms/nextjs-with-cache-tags-starter)
+
+> [!NOTE]
+>
 > A lot of inspiration for the basic turborepo settings comes from the Create T3 Turbo repo. Find the repo here: [create-t3-turbo](https://github.com/t3-oss/create-t3-turbo/)
 
 ## Demo
 
 Have a look at the end result live:
 
-### [not live yet](not live yet)
+### [https://datocms-turborepo-web.vercel.app/](https://datocms-turborepo-web.vercel.app/)
 
 ## Getting Started
 
@@ -75,6 +78,10 @@ pnpm dev
 ```
 
 Your site will be up and running on [http://localhost:3000](http://localhost:3000)!
+
+### Step 4: Deploy to Vercel
+
+Override the Build Command in Vercel and set it to: cd ../.. && npx turbo run build --filter=web
 
 ## Additional Information
 
