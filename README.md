@@ -9,7 +9,7 @@
 
 Have a look at the end result live:
 
-### [https://ecommerce-website-demo-livid.vercel.app/](https://ecommerce-website-demo-livid.vercel.app/)
+### [not live yet](not live yet)
 
 ## Getting Started
 
@@ -21,7 +21,7 @@ Have a look at the end result live:
 
 3. Press this button to create a new project on DatoCMS containing the data expected by this project:
 
-[![Clone DatoCMS project](https://dashboard.datocms.com/deploy/button.svg)](https://dashboard.datocms.com/clone?projectId=158348&name=datocms-turborepo)
+[![Clone DatoCMS project](https://dashboard.datocms.com/clone/button.svg)](https://dashboard.datocms.com/clone?projectId=158348&name=datocms-turborepo)
 
 Once the setup of the project is done, clone the repo locally.
 
