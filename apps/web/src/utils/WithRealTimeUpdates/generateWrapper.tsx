@@ -42,6 +42,9 @@ export function generateWrapper<
       })) || ({} as TVariables);
 
     const data = await queryDatoCMS(options.query, variables, isDraft);
+    if (!data) {
+      notFound();
+    }
 
     const { realtimeComponent: RealTime, contentComponent: Content } = options;
 
