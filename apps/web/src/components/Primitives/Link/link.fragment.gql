@@ -1,0 +1,13 @@
+fragment LinkFragment on LinkRecord {
+  id
+  __typename
+  _modelApiKey
+  linkType
+  label
+  variant
+  internalLink {
+    title
+    slug
+  }
+  externalLink
+}

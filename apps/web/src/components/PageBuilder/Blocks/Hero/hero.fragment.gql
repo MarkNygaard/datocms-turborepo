@@ -1,0 +1,21 @@
+fragment HeroFragment on HeroRecord {
+  id
+  __typename
+  slideContent {
+    title
+    subtitle
+    cta {
+      ...LinkFragment
+    }
+    media {
+      media {
+        responsiveImage {
+          ...ResponsiveImageFragment
+        }
+        video {
+          ...VideoFragment
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+fragment VideoFragment on UploadVideoField {
+  muxPlaybackId
+  title
+  width
+  height
+  blurUpThumb
+}

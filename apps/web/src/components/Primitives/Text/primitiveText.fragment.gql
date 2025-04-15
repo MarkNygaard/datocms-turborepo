@@ -1,0 +1,10 @@
+fragment PrimitiveTextFragment on PrimitiveTextRecord {
+  text {
+    value
+    blocks {
+      ... on MediumRecord {
+        ...MediumFragment
+      }
+    }
+  }
+}

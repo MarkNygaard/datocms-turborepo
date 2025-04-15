@@ -1,0 +1,11 @@
+fragment AccordionFragment on AccordionRecord {
+  id
+  __typename
+  accordionPanel {
+    id
+    label
+    text {
+      ...PrimitiveTextFragment
+    }
+  }
+}

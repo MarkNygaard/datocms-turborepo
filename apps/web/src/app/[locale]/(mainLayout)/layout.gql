@@ -1,0 +1,59 @@
+query Layout($locale: SiteLocale, $fallbackLocale: [SiteLocale!]) {
+  _site {
+    locales
+    faviconMetaTags {
+      attributes
+      content
+      tag
+    }
+    globalSeo {
+      fallbackSeo {
+        title
+        description
+      }
+    }
+    favicon {
+      url
+    }
+  }
+  layout(locale: $locale, fallbackLocales: $fallbackLocale) {
+    notification {
+      value
+    }
+    topBarText
+    topBarLinks {
+      ...LinkFragment
+    }
+    logo {
+      url
+      responsiveImage {
+        ...ResponsiveImageFragment
+      }
+    }
+    footerColumns {
+      id
+      label
+      footerItem {
+        ...LinkFragment
+      }
+    }
+    copyrightText
+    menu {
+      ... on LinkRecord {
+        ...LinkFragment
+      }
+      ... on DropdownMenuRecord {
+        id
+        label
+        _modelApiKey
+        column {
+          label
+          id
+          links {
+            ...LinkFragment
+          }
+        }
+      }
+    }
+  }
+}

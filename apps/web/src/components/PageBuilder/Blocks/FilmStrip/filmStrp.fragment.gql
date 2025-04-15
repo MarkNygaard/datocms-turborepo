@@ -1,0 +1,23 @@
+fragment FilmStripFragment on FilmStripRecord {
+  id
+  __typename
+  cards {
+    id
+    label
+    cta {
+      ...LinkFragment
+    }
+    media {
+      media {
+        responsiveImage(
+          imgixParams: { fit: crop, w: 600, h: 800, auto: format }
+        ) {
+          ...ResponsiveImageFragment
+        }
+        video {
+          ...VideoFragment
+        }
+      }
+    }
+  }
+}

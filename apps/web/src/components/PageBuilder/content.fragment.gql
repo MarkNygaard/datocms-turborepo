@@ -1,0 +1,17 @@
+fragment ContentFragment on ContentModelContentField {
+  ... on HeroRecord {
+    ...HeroFragment
+  }
+  ... on FilmStripRecord {
+    ...FilmStripFragment
+  }
+  ... on AccordionRecord {
+    ...AccordionFragment
+  }
+  ... on MediumRecord {
+    ...MediumFragment
+  }
+  ... on TextRecord {
+    ...TextFragment
+  }
+}

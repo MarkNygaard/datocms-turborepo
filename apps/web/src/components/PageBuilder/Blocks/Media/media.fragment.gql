@@ -1,0 +1,14 @@
+fragment MediumFragment on MediumRecord {
+  id
+  __typename
+  medium {
+    media {
+      responsiveImage {
+        ...ResponsiveImageFragment
+      }
+      video {
+        ...VideoFragment
+      }
+    }
+  }
+}

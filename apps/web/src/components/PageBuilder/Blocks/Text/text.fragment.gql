@@ -1,0 +1,7 @@
+fragment TextFragment on TextRecord {
+  id
+  __typename
+  text {
+    ...PrimitiveTextFragment
+  }
+}
