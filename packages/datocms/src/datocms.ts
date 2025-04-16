@@ -38,11 +38,9 @@ export async function executeQueryWithoutMemoization<
     },
   });
 
-  console.log("📡 PROD fetch run at:", new Date().toISOString());
-  console.log(
-    "📦 Fetching queryId:",
-    await generateQueryId(document, variables),
-  );
+  // TEMP LOG FOR DEBUGGING
+  console.log("🔍 DATA FROM DATOCMS:", JSON.stringify(data, null, 2));
+  console.log("🔖 X-Cache-Tags:", response.headers.get("x-cache-tags"));
 
   const cacheTags = parseXCacheTagsResponseHeader(
     response.headers.get("x-cache-tags"),
