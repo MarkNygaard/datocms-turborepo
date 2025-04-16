@@ -14,11 +14,14 @@ const generatePreviewUrl = ({
 }: generatePreviewUrlParams) => {
   const localePrefix = locale === "en" ? "" : `/${locale}`;
 
+  console.log("itemType", itemType);
+  console.log("item", item);
+
   switch (itemType.attributes.api_key) {
     case "home":
       return `${localePrefix || "/"}`;
     case "page":
-      return `${localePrefix}/${item.attributes.slug || ""}`;
+      return `${localePrefix}/${item.attributes.slug}`;
     default:
       return null;
   }
