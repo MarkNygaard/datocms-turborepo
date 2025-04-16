@@ -41,8 +41,11 @@ export function generateWrapper<
         fallbackLocale,
       })) || ({} as TVariables);
 
-    const data = await queryDatoCMS(options.query, variables, isDraft);
-    if (!data) {
+    let data: TResult;
+    try {
+      data = await queryDatoCMS(options.query, variables, isDraft);
+    } catch (err) {
+      console.error("Failed to fetch data from DatoCMS:", err);
       notFound();
     }
 
