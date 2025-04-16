@@ -1,5 +1,4 @@
 import type { NextRequest } from "next/server";
-import { getFallbackLocale } from "i18n/settings";
 import { SiteLocale } from "types/datocms";
 
 type generatePreviewUrlParams = {
@@ -8,13 +7,12 @@ type generatePreviewUrlParams = {
   locale: SiteLocale;
 };
 
-const generatePreviewUrl = async ({
+const generatePreviewUrl = ({
   item,
   itemType,
   locale,
 }: generatePreviewUrlParams) => {
-  const fallbackLocale = await getFallbackLocale();
-  const localePrefix = locale === fallbackLocale ? "" : `/${locale}`;
+  const localePrefix = locale === "en" ? "" : `/${locale}`;
 
   switch (itemType.attributes.api_key) {
     case "home":
