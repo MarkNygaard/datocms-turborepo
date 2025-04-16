@@ -33,8 +33,7 @@ export async function executeQueryWithoutMemoization<
     returnCacheTags: true,
     variables,
     requestInitOptions: {
-      cache:
-        process.env.NODE_ENV === "development" ? "no-store" : "force-cache",
+      cache: "no-store",
     },
   });
 
