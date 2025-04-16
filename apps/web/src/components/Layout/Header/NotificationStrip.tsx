@@ -8,11 +8,11 @@ import {
   renderNodeRule,
   StructuredText as StructuredTextField,
 } from "react-datocms/structured-text";
-import { LayoutModelNotificationField } from "types/datocms";
+import { LayoutModelNotificationField, SiteLocale } from "types/datocms";
 
 type Props = {
   notification: LayoutModelNotificationField;
-  locale: Promise<string>;
+  locale: SiteLocale;
 };
 
 const NotificationStrip = ({ notification, locale }: Props) => {

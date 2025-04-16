@@ -1,6 +1,10 @@
 import { isEmptyDocument } from "datocms-structured-text-utils";
 import { getLocale } from "next-intl/server";
-import { LayoutModelNotificationField, LayoutQuery } from "types/datocms";
+import {
+  LayoutModelNotificationField,
+  LayoutQuery,
+  SiteLocale,
+} from "types/datocms";
 
 import Navigation from "./Navigation";
 import NotificationStrip from "./NotificationStrip";
@@ -8,11 +12,10 @@ import TopBar from "./TopBar";
 
 type Props = {
   data: LayoutQuery;
+  locale: SiteLocale;
 };
 
-const Header = ({ data }: Props) => {
-  const locale = getLocale();
-
+const Header = ({ data, locale }: Props) => {
   return (
     <>
       {!isEmptyDocument(data.layout?.notification) && (
