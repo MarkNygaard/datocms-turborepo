@@ -1,11 +1,11 @@
-import { PageDocument, PageQuery, PageQueryVariables } from "types/datocms";
+import { HomeDocument, HomeQuery, HomeQueryVariables } from "types/datocms";
 import { GlobalPageProps } from "utils/globalPageProps";
 
 export type PageProps = GlobalPageProps & {
   children: React.ReactNode;
 };
 
-export type Query = PageQuery;
-export type Variables = PageQueryVariables;
+export type Query = HomeQuery;
+export type Variables = HomeQueryVariables;
 
-export const query = PageDocument;
+export const query = HomeDocument;

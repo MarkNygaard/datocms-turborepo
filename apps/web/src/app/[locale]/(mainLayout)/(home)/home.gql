@@ -1,0 +1,10 @@
+query Home($locale: SiteLocale, $fallbackLocale: [SiteLocale!]) {
+  home(locale: $locale, fallbackLocales: $fallbackLocale) {
+    title
+    pageBuilder {
+      content {
+        ...ContentFragment
+      }
+    }
+  }
+}

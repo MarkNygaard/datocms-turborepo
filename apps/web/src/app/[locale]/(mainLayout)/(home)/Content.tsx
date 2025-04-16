@@ -6,7 +6,7 @@ import { ContentPage } from "utils/WithRealTimeUpdates/types";
 import type { PageProps, Query } from "./meta";
 
 const Content: ContentPage<PageProps, Query> = ({ data }) => {
-  const page = data.page;
+  const page = data.home;
 
   if (!page) {
     notFound();

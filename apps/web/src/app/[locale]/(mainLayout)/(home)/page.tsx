@@ -15,9 +15,8 @@ const buildVariables: BuildVariablesFn<PageProps, Variables> = async ({
   params,
   fallbackLocale,
 }) => {
-  const { slug, locale } = await params;
+  const { locale } = await params;
   return {
-    slug: slug,
     locale: locale,
     fallbackLocale: [fallbackLocale],
   };
