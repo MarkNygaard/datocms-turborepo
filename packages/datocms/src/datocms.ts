@@ -1,5 +1,5 @@
 import type { TypedDocumentNode } from "@graphql-typed-document-node/core";
-import { unstable_cache as cache } from "next/cache";
+import { cache } from "react";
 import { rawExecuteQuery } from "@datocms/cda-client";
 import { print } from "graphql";
 import stringify from "safe-stable-stringify";
@@ -15,39 +15,43 @@ export async function executeQueryWithoutMemoization<
   variables?: TVariables,
   isDraft?: boolean,
 ): Promise<TResult> {
-  const headers: Record<string, string> = {
+  if (!process.env.DATOCMS_READONLY_API_TOKEN) {
+    throw new Error("Missing DatoCMS API token.");
+  }
+
+  const headers: HeadersInit = {
     "Content-Type": "application/json",
     Accept: "application/json",
     "X-Exclude-Invalid": "true",
     Authorization: `Bearer ${process.env.DATOCMS_READONLY_API_TOKEN}`,
   };
 
-  if (isDraft || process.env.NODE_ENV === "development")
+  if (isDraft || process.env.NODE_ENV === "development") {
     headers["X-Include-Drafts"] = "true";
+  }
 
-  const documentId = await generateQueryId(document, variables);
+  const queryId = await generateQueryId(document, variables);
 
   const [data, response] = await rawExecuteQuery(document, {
-    token: process.env.DATOCMS_READONLY_API_TOKEN ?? "",
+    token: process.env.DATOCMS_READONLY_API_TOKEN,
     excludeInvalid: true,
     returnCacheTags: true,
     variables,
     requestInitOptions: {
-      cache: "no-store",
-    },
+      cache: "force-cache",
+      next: {
+        tags: [queryId],
+      },
+    } as any,
   });
-
-  // TEMP LOG FOR DEBUGGING
-  console.log("🔍 DATA FROM DATOCMS:", JSON.stringify(data, null, 2));
-  console.log("🔖 X-Cache-Tags:", response.headers.get("x-cache-tags"));
 
   const cacheTags = parseXCacheTagsResponseHeader(
     response.headers.get("x-cache-tags"),
   );
 
-  await storeQueryCacheTags(documentId, cacheTags);
+  await storeQueryCacheTags(queryId, cacheTags);
 
-  return data as TResult;
+  return data;
 }
 
 export async function generateQueryId<
@@ -58,11 +62,7 @@ export async function generateQueryId<
   variables?: TVariables,
 ): Promise<string> {
   const encoder = new TextEncoder();
-
   const hashInput = print(document) + stringify(variables ?? {});
-
-  console.log("🧪 Hash input for queryId:", hashInput);
-
   const data = encoder.encode(hashInput);
   const hashBuffer = await crypto.subtle.digest("SHA-1", data);
 
@@ -71,16 +71,15 @@ export async function generateQueryId<
     .join("");
 }
 
-export const queryDatoCMS =
-  process.env.NODE_ENV === "production"
-    ? executeQueryWithoutMemoization
-    : cacheWithDeepCompare(executeQueryWithoutMemoization);
+export const queryDatoCMS = cacheWithDeepCompare(
+  executeQueryWithoutMemoization,
+);
 
 function cacheWithDeepCompare<A extends unknown[], R>(
-  fn: (...args: A) => Promise<R>,
-): (...args: A) => Promise<R> {
-  const cachedFn = cache(async (serialized: string) => {
-    return Promise.resolve(fn(...(JSON.parse(serialized) as A)));
+  fn: (...args: A) => R,
+): (...args: A) => R {
+  const cachedFn = cache((serialized: string) => {
+    return fn(...JSON.parse(serialized));
   });
   return (...args: A) => {
     const serialized = JSON.stringify(args);

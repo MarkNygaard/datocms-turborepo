@@ -8,8 +8,6 @@ import type { PageProps, Query } from "./meta";
 const Content: ContentPage<PageProps, Query> = ({ data }) => {
   const page = data.home;
 
-  console.log("🧠 Props received by component:", JSON.stringify(data, null, 2));
-
   if (!page) {
     notFound();
   }

@@ -41,8 +41,6 @@ export function generateWrapper<
         fallbackLocale,
       })) || ({} as TVariables);
 
-    console.log("🌍 DatoCMS query variables:", variables);
-
     let data: TResult;
     try {
       data = await queryDatoCMS(options.query, variables, isDraft);

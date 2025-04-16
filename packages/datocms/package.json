@@ -31,7 +31,7 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@datocms/cda-client": "^0.2.2",
+    "@datocms/cda-client": "^0.2.7",
     "@libsql/client": "^0.14.0",
     "graphql": "^16.9.0",
     "next": "15.3.0",
