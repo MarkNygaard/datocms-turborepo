@@ -1,5 +1,5 @@
 import type { TypedDocumentNode } from "@graphql-typed-document-node/core";
-import { cache } from "react";
+import { unstable_cache as cache } from "next/cache";
 import { rawExecuteQuery } from "@datocms/cda-client";
 import { print } from "graphql";
 import stringify from "safe-stable-stringify";
@@ -42,7 +42,7 @@ export async function executeQueryWithoutMemoization<
       next: {
         tags: [queryId],
       },
-    } as any,
+    } as RequestInit,
   });
 
   const cacheTags = parseXCacheTagsResponseHeader(
@@ -51,10 +51,10 @@ export async function executeQueryWithoutMemoization<
 
   await storeQueryCacheTags(queryId, cacheTags);
 
-  return data;
+  return data as TResult;
 }
 
-export async function generateQueryId<
+async function generateQueryId<
   TResult = unknown,
   TVariables extends Record<string, unknown> = Record<string, unknown>,
 >(
@@ -76,10 +76,10 @@ export const queryDatoCMS = cacheWithDeepCompare(
 );
 
 function cacheWithDeepCompare<A extends unknown[], R>(
-  fn: (...args: A) => R,
-): (...args: A) => R {
-  const cachedFn = cache((serialized: string) => {
-    return fn(...JSON.parse(serialized));
+  fn: (...args: A) => Promise<R>,
+): (...args: A) => Promise<R> {
+  const cachedFn = cache(async (serialized: string) => {
+    return Promise.resolve(fn(...(JSON.parse(serialized) as A)));
   });
   return (...args: A) => {
     const serialized = JSON.stringify(args);
