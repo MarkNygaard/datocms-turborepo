@@ -35,7 +35,8 @@
     "@libsql/client": "^0.14.0",
     "graphql": "^16.9.0",
     "next": "15.3.0",
-    "react-datocms": "^7.2.2"
+    "react-datocms": "^7.2.2",
+    "safe-stable-stringify": "^2.5.0"
   },
   "devDependencies": {
     "@graphql-codegen/typed-document-node": "^5.0.11",

@@ -2,6 +2,7 @@ import type { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import { unstable_cache as cache } from "next/cache";
 import { rawExecuteQuery } from "@datocms/cda-client";
 import { print } from "graphql";
+import stringify from "safe-stable-stringify";
 
 import { parseXCacheTagsResponseHeader } from "./cache-tags";
 import { storeQueryCacheTags } from "./database";
@@ -52,7 +53,7 @@ export async function executeQueryWithoutMemoization<
   return data as TResult;
 }
 
-async function generateQueryId<
+export async function generateQueryId<
   TResult = unknown,
   TVariables extends Record<string, unknown> = Record<string, unknown>,
 >(
@@ -60,10 +61,14 @@ async function generateQueryId<
   variables?: TVariables,
 ): Promise<string> {
   const encoder = new TextEncoder();
-  const data = encoder.encode(
-    print(document) + JSON.stringify(variables ?? {}),
-  );
+
+  const hashInput = print(document) + stringify(variables ?? {});
+
+  console.log("🧪 Hash input for queryId:", hashInput);
+
+  const data = encoder.encode(hashInput);
   const hashBuffer = await crypto.subtle.digest("SHA-1", data);
+
   return Array.from(new Uint8Array(hashBuffer))
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");
