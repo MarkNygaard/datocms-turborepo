@@ -76,12 +76,13 @@ export const queryDatoCMS = cacheWithDeepCompare(
 );
 
 function cacheWithDeepCompare<A extends unknown[], R>(
-  fn: (...args: A) => Promise<R>,
+  fn: (...args: A) => R | Promise<R>,
 ): (...args: A) => Promise<R> {
-  const cachedFn = cache(async (serialized: string) => {
+  const cachedFn = cache((serialized: string): Promise<R> => {
     return Promise.resolve(fn(...(JSON.parse(serialized) as A)));
   });
-  return (...args: A) => {
+
+  return (...args: A): Promise<R> => {
     const serialized = JSON.stringify(args);
     return cachedFn(serialized);
   };
