@@ -67,6 +67,9 @@ export async function POST(request: Request) {
      * The next time someone requests any of these outdated entries, the cache
      * will respond with a MISS.
      */
+    console.log("🚨 Webhook received", cacheTags);
+    console.log("🔍 Query IDs to revalidate:", queryIds);
+
     revalidateTag(queryId);
   }
   return NextResponse.json({ cacheTags, queryIds });

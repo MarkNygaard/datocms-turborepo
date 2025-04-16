@@ -37,6 +37,12 @@ export async function executeQueryWithoutMemoization<
     },
   });
 
+  console.log("📡 PROD fetch run at:", new Date().toISOString());
+  console.log(
+    "📦 Fetching queryId:",
+    await generateQueryId(document, variables),
+  );
+
   const cacheTags = parseXCacheTagsResponseHeader(
     response.headers.get("x-cache-tags"),
   );
@@ -63,9 +69,10 @@ async function generateQueryId<
     .join("");
 }
 
-export const queryDatoCMS = cacheWithDeepCompare(
-  executeQueryWithoutMemoization,
-);
+export const queryDatoCMS =
+  process.env.NODE_ENV === "production"
+    ? executeQueryWithoutMemoization
+    : cacheWithDeepCompare(executeQueryWithoutMemoization);
 
 function cacheWithDeepCompare<A extends unknown[], R>(
   fn: (...args: A) => Promise<R>,
