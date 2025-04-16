@@ -1,5 +1,4 @@
 import { isEmptyDocument } from "datocms-structured-text-utils";
-import { getLocale } from "next-intl/server";
 import {
   LayoutModelNotificationField,
   LayoutQuery,
