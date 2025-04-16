@@ -6,13 +6,9 @@ import { ContentPage } from "utils/WithRealTimeUpdates/types";
 import type { PageProps, Query } from "./meta";
 
 const Content: ContentPage<PageProps, Query> = ({ data }) => {
-  const page = data.page;
+  const { page } = data;
 
-  if (!page) {
-    notFound();
-  }
-
-  return <PageBuilder {...(page.pageBuilder as ContentRecord)} />;
+  return <PageBuilder {...(page?.pageBuilder as ContentRecord)} />;
 };
 
 export default Content;
