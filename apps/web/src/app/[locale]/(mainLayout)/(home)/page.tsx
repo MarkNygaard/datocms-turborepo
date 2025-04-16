@@ -7,6 +7,8 @@ import Content from "./Content";
 import { query } from "./meta";
 import RealTime from "./RealTime";
 
+export const dynamic = "force-static";
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
