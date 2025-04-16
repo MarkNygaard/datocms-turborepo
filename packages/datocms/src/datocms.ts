@@ -1,5 +1,5 @@
 import type { TypedDocumentNode } from "@graphql-typed-document-node/core";
-import { unstable_cache as cache } from "next/cache";
+import { cache } from "react";
 import { rawExecuteQuery } from "@datocms/cda-client";
 import { print } from "graphql";
 import stringify from "safe-stable-stringify";
