@@ -5,28 +5,32 @@ import { redirect } from "next/navigation";
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
 
-  const token = searchParams.get("token");
+  const token = request.headers.get("x-preview-token");
   const url = searchParams.get("url");
 
-  if (token !== process.env.DRAFT_SECRET_TOKEN)
+  if (token !== process.env.DRAFT_SECRET_TOKEN) {
     return new Response("Invalid token", { status: 401 });
+  }
 
   (await draftMode()).enable();
 
   if (!url) return new Response("Draft mode is enabled");
 
-  //to avoid losing the cookie on redirect in the iFrame
+  // Retain draftMode cookie in iframe context
   const cookieStore = await cookies();
-  const cookie = cookieStore.get("__prerender_bypass")!;
-  cookieStore.set({
-    name: "__prerender_bypass",
-    value: cookie?.value,
-    httpOnly: true,
-    path: "/",
-    secure: true,
-    sameSite: "none",
-    partitioned: true,
-  });
+  const cookie = cookieStore.get("__prerender_bypass");
+
+  if (cookie) {
+    cookieStore.set({
+      name: "__prerender_bypass",
+      value: cookie.value,
+      httpOnly: true,
+      path: "/",
+      secure: true,
+      sameSite: "none",
+      partitioned: true,
+    });
+  }
 
   redirect(url);
 }
