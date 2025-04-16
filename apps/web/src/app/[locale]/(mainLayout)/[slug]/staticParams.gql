@@ -1,0 +1,5 @@
+query PageStaticParams($locale: SiteLocale) {
+  allPages(locale: $locale) {
+    slug
+  }
+}

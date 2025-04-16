@@ -1,16 +1,32 @@
 import { routing } from "i18n/routing";
+import { PageStaticParamsDocument, SiteLocale } from "types/datocms";
 import { generateWrapper } from "utils/WithRealTimeUpdates/generateWrapper";
 import { BuildVariablesFn } from "utils/WithRealTimeUpdates/types";
+
+import { queryDatoCMS } from "@repo/datocms";
 
 import type { PageProps, Query, Variables } from "./meta";
 import Content from "./Content";
 import { query } from "./meta";
 import RealTime from "./RealTime";
 
-export const dynamicParams = true;
+export async function generateStaticParams() {
+  const locales = routing.locales;
 
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  const allParams = await Promise.all(
+    (locales as SiteLocale[]).map(async (locale) => {
+      const { allPages } = await queryDatoCMS(PageStaticParamsDocument, {
+        locale,
+      });
+
+      return allPages.map((page) => ({
+        locale,
+        slug: page.slug,
+      }));
+    }),
+  );
+
+  return allParams.flat();
 }
 
 const buildVariables: BuildVariablesFn<PageProps, Variables> = async ({
