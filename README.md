@@ -122,3 +122,9 @@ tooling
   └─ typescript
       └─ shared tsconfig you can extend from
 ```
+
+Webhook Settings
+<img src="https://github.com/MarkNygaard/datocms-turborepo/raw/main/readme-images/webhook_settings.jpg">
+
+Web Previews Settings
+<img src="https://github.com/MarkNygaard/datocms-turborepo/raw/main/readme-images/web_previews_settings.jpg">
