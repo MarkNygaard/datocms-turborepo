@@ -2,7 +2,7 @@
 
 > [!NOTE]
 >
-> This starter is heavily inspired by DatoCMS own eCommerce demo and their cache-tags starter. Find the repos here: [ecommerce-website-demo](https://github.com/datocms/ecommerce-website-demo) [nextjs-with-cache-tags-starter](https://github.com/datocms/nextjs-with-cache-tags-starter)
+> This starter is heavily inspired by DatoCMS own eCommerce demo and their cache-tags starter. Find the repos here: [ecommerce-website-demo](https://github.com/datocms/ecommerce-website-demo) and [nextjs-with-cache-tags-starter](https://github.com/datocms/nextjs-with-cache-tags-starter)
 
 > [!NOTE]
 >
@@ -37,7 +37,7 @@ Then click **Read-only API token** and copy the token.
 Next, copy the `.env.example` file in apps/web to `.env` in the same directory (which will be ignored by Git):
 
 ```bash
-cp .env.example .env.local
+cp .env.example .env
 ```
 
 and set the `DATOCMS_READONLY_API_TOKEN` variable as the API token you just copied.
