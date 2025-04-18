@@ -4,14 +4,14 @@ import FilmStrip from "@/Blocks/FilmStrip";
 import Hero from "@/Blocks/Hero";
 import Media from "@/Blocks/Media";
 import Text from "@/Blocks/Text";
-import { ContentRecord } from "types/datocms";
+import { PageBuilderRecord } from "types/datocms";
 
-export default function PageBuilder({ content }: ContentRecord) {
-  if (!content) return null;
+export default function PageBuilder({ pageBuilder }: PageBuilderRecord) {
+  if (!pageBuilder) return null;
 
   return (
     <>
-      {content?.map((block) => {
+      {pageBuilder?.map((block) => {
         switch (block.__typename) {
           case "HeroRecord":
             return <Hero key={block.id} {...block} />;
