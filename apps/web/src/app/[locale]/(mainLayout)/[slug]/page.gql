@@ -2,8 +2,8 @@ query Page($slug: String, $locale: SiteLocale) {
   page(filter: { slug: { eq: $slug } }, locale: $locale) {
     title
     pageBuilder {
-      content {
-        ...ContentFragment
+      pageBuilder {
+        ...PageBuilderFragment
       }
     }
   }

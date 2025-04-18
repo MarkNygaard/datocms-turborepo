@@ -1,4 +1,4 @@
-fragment ContentFragment on ContentModelContentField {
+fragment PageBuilderFragment on PageBuilderModelPageBuilderField {
   ... on HeroRecord {
     ...HeroFragment
   }
