@@ -24,7 +24,6 @@ export async function executeQueryWithoutMemoization<
     Accept: "application/json",
     "X-Exclude-Invalid": "true",
     Authorization: `Bearer ${process.env.DATOCMS_READONLY_API_TOKEN}`,
-    "X-Environment": process.env.DATOCMS_ENVIRONMENT ?? "main",
   };
 
   if (isDraft || process.env.NODE_ENV === "development") {
@@ -38,6 +37,7 @@ export async function executeQueryWithoutMemoization<
     excludeInvalid: true,
     returnCacheTags: true,
     variables,
+    environment: process.env.DATOCMS_ENVIRONMENT ?? "main",
     requestInitOptions: {
       cache: "force-cache",
       next: {
