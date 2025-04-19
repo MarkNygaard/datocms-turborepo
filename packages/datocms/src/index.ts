@@ -12,6 +12,7 @@ export type { CacheTag } from "./cache-tags";
 function validateEnvironmentVariables() {
   const requiredVariables = [
     "DATOCMS_READONLY_API_TOKEN",
+    "DATOCMS_ENVIRONMENT",
     "CACHE_INVALIDATION_SECRET_TOKEN",
     "DRAFT_SECRET_TOKEN",
     "TURSO_DATABASE_URL",
