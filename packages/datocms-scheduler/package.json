@@ -1,0 +1,24 @@
+{
+  "name": "@repo/datocms-scheduler",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --loader ts-node/esm dev.ts",
+    "run": "node --loader ts-node/esm src/index.ts"
+  },
+  "dependencies": {
+    "@datocms/cma-client-node": "^4.0.1",
+    "@repo/datocms": "workspace:*",
+    "dotenv": "^16.5.0",
+    "graphql-request": "^6.1.0",
+    "node-cron": "^3.0.3",
+    "node-fetch": "^3.3.2",
+    "undici": "^7.8.0"
+  },
+  "devDependencies": {
+    "@repo/tsconfig": "workspace:*",
+    "@types/node": "^22.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.8.3"
+  }
+}

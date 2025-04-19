@@ -1,0 +1,40 @@
+# .github/workflows/datocms-scheduler.yml
+name: DatoCMS Scheduler
+
+on:
+  schedule:
+    - cron: "*/5 * * * *" # every 5 minutes
+  workflow_dispatch: # allows manual runs too
+
+jobs:
+  run-scheduler:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run DatoCMS scheduler
+        env:
+          DATOCMS_API_TOKEN: ${{ secrets.DATOCMS_API_TOKEN }}
+          DATOCMS_READ_API_URL: https://graphql.datocms.com
+          CACHE_INVALIDATION_SECRET_TOKEN: ${{ secrets.CACHE_INVALIDATION_SECRET_TOKEN }}
+          CACHE_INVALIDATION_ENDPOINT: https://your-site.com/api/invalidate-cache-tags
+          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+        run: pnpm --filter @repo/datocms-scheduler run run

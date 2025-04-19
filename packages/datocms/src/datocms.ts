@@ -8,7 +8,7 @@ import { parseXCacheTagsResponseHeader } from "./cache-tags";
 import { storeQueryCacheTags } from "./database";
 
 function getExplicitEnvironment(): string | undefined {
-  const env = process.env.NODE_ENV;
+  const env = process.env.NEXT_PUBLIC_ENVIRONMENT;
   const datoEnv = process.env.DATOCMS_ENVIRONMENT;
 
   // In development/staging: use override

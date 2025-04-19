@@ -22,7 +22,7 @@ import type { CacheTag } from "./cache-tags";
  * provided to the Turso client. By setting the `cache` option to `no-store`, we
  * ensure that Next.js does not cache our HTTP requests for database calls.
  */
-const database = () =>
+export const database = () =>
   createClient({
     url:
       process.env.TURSO_DATABASE_URL ??

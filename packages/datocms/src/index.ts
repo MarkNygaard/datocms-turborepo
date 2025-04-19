@@ -5,6 +5,7 @@ export {
   queriesReferencingCacheTags,
   deleteQueries,
   truncateAssociationsTable,
+  database,
 } from "./database";
 export type { CacheTag } from "./cache-tags";
 
