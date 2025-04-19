@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import { buildClient } from "@datocms/cma-client-node";
 import { config } from "dotenv";
 import { gql, request } from "graphql-request";
@@ -183,4 +184,12 @@ export async function runScheduler() {
   } else {
     console.log(`✅ Environment already set to '${targetEnv}'. No changes.`);
   }
+}
+
+// ✅ Only run if this file is executed directly
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  runScheduler().catch((err) => {
+    console.error("❌ Scheduler failed:", err);
+    process.exit(1);
+  });
 }
