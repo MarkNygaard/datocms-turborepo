@@ -10,8 +10,6 @@ import Content from "./Content";
 import { query } from "./meta";
 import RealTime from "./RealTime";
 
-export const dynamic = "force-static";
-
 export async function generateStaticParams() {
   const locales = routing.locales;
 
