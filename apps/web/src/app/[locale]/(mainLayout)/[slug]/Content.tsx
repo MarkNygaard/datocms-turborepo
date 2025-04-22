@@ -1,4 +1,3 @@
-import { notFound } from "next/navigation";
 import PageBuilder from "components/PageBuilder";
 import { PageBuilderRecord } from "types/datocms";
 import { ContentPage } from "utils/WithRealTimeUpdates/types";

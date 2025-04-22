@@ -4,6 +4,7 @@ import type { Record, StructuredText } from "datocms-structured-text-utils";
 import { useState } from "react";
 import Link from "next/link";
 import { isLink } from "datocms-structured-text-utils";
+import { getLocale } from "next-intl/server";
 import {
   renderNodeRule,
   StructuredText as StructuredTextField,
@@ -12,12 +13,13 @@ import { LayoutModelNotificationField, SiteLocale } from "types/datocms";
 
 type Props = {
   notification: LayoutModelNotificationField;
-  locale: SiteLocale;
 };
 
-const NotificationStrip = ({ notification, locale }: Props) => {
+const NotificationStrip = ({ notification }: Props) => {
   const [notificationStrip, setNotificationStrip] = useState(true);
   if (!notificationStrip) return null;
+
+  const locale = getLocale();
 
   return (
     <div className="relative z-50 bg-white pb-1">

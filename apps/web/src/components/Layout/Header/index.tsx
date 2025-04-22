@@ -11,10 +11,9 @@ import TopBar from "./TopBar";
 
 type Props = {
   data: LayoutQuery;
-  locale: SiteLocale;
 };
 
-const Header = ({ data, locale }: Props) => {
+const Header = ({ data }: Props) => {
   return (
     <>
       {!isEmptyDocument(data.layout?.notification) && (
@@ -22,7 +21,6 @@ const Header = ({ data, locale }: Props) => {
           notification={
             data.layout?.notification as LayoutModelNotificationField
           }
-          locale={locale}
         />
       )}
       {(data.layout?.topBarText || data.layout?.topBarLinks) && (
